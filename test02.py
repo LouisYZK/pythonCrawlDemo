@@ -68,4 +68,4 @@ def getContent(i):
         print(i, record['farmProduceName'],record['marketName'],record['maxPrice'],record['minPrice'],record['averagePrice'],record['producAdd'] and record['producAdd'],record['reportMan'])
 n = int(getPageNumber())
 getContent(n)
-# xiugai
+# xiugaisss
