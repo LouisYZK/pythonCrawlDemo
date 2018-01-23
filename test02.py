@@ -44,7 +44,8 @@ def getPageNumber():
     opener = request.build_opener()     
     # 解码AMF协议返回的数据  
     resp = remoting.decode(opener.open(req).read())  
-    return resp.bodies[0][1].body.body[3] 
+    return resp.bodies[0][1].body.body[3]
+# body[3]是数据总条数，body[2]是页数 
 def getContent(i):  
     msg.body = [HqPara(),'1',str(i)]  
     msg.headers['DSEndpoint'] = None  
@@ -67,3 +68,4 @@ def getContent(i):
         print(i, record['farmProduceName'],record['marketName'],record['maxPrice'],record['minPrice'],record['averagePrice'],record['producAdd'] and record['producAdd'],record['reportMan'])
 n = int(getPageNumber())
 getContent(n)
+# xiugai
