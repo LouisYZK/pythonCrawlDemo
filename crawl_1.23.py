@@ -1,7 +1,3 @@
-# coding: utf-8  
-# agri.gov.cn_amf_client.py  
-# http://jgsb.agri.gov.cn/flexapps/hqApp.swf数据抓取  
-  
 from urllib import request
 import uuid  
 import pyamf  
