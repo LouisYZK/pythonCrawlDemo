@@ -58,7 +58,7 @@ def store2json(info):
         record['auditDate'] = record['auditDate'].strftime('%Y-%m-%d %H:%M:%S')
         res.append(record)
     fp = open('info.json','w') 
-    json.dump(res,fp)
+    json.dump(res,fp,indent=4)
     fp.close()
 # 测试
 reqData = getRequestData(1,15)
