@@ -8,7 +8,7 @@
     - 公司版本控制与代码提交: SVN
 - 前端数据可视化项目。根据一定需求编写数据可视化js，用到的js框架有：Echarts\百度地图API\lealef等
 
-## 1.23 基于flex技术页面的爬取
+## [1.23 基于flex技术页面的爬取](https://github.com/LouisYZK/ShiXi_inWuhan/tree/master/1.23)
 中国农业信息网发布每一天的价格行情，但政府网站较为古老，采用Flash呈现数据。
 网址:http://jgsb.agri.cn/controller?SERVICE_ID=REGISTRY_JCSJ_MRHQ_SHOW_SERVICE&recordperpage=15&newsearch=true&login_result_sign=nologin
 与正常的Ajax网站分析一样，只是请求码和返回码运用了awf技术编码，无法分析。此时用chales抓包可以分析出正常明文。据此可以写出伪造的请求头和接收数据格式，具体采用python的第三方pyawf库
@@ -17,4 +17,6 @@ pyawf库原生的并不支持3.x，需要安装Py3Awf. 此外导入时会报错�
 代码见crawl_1.23.py
 
 ## [1.24爬取国家林木种质资源品台数据](https://github.com/LouisYZK/ShiXi_inWuhan/tree/master/1.24)
-今天的主要工作是爬取林木种质资源数据，网页数据是ajax加载，分析步骤并不难。但是出现了json格式解析失败等意外状况。
+今天的主要工作是爬取林木种质资源数据，网页数据是ajax加载，分析步骤并不难。
+
+但是出现了json格式解析失败等意外状况。解决方案是舍弃requets的json()方法，直接用正则表达式解析原文档。
