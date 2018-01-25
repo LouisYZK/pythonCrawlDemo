@@ -15,4 +15,6 @@
 pyawf库原生的并不支持3.x，需要安装Py3Awf. 此外导入时会报错，需要修改一下__init__.py文件
 
 代码见crawl_1.23.py
- 
+
+## [1.24爬取国家林木种质资源品台数据](https://github.com/LouisYZK/ShiXi_inWuhan/tree/master/1.24)
+今天的主要工作是爬取林木种质资源数据，网页数据是ajax加载，分析步骤并不难。但是出现了json格式解析失败等意外状况。
