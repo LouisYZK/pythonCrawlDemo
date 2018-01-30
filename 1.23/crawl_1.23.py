@@ -44,7 +44,7 @@ def getResponse(data):
     # 解析返回数据  
     opener = request.build_opener()          
     return opener.open(req).read()
-# 解析
+# 解析d
 def getContent(response):
     amf_parse_info = remoting.decode(response)
     # 数据总条数

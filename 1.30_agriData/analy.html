@@ -1,0 +1,404 @@
+<HTML>
+<HEAD>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<meta name="keywords" content="天地图"/>
+	<TITLE>地图</TITLE>
+	<script type="text/javascript" src="http://api.tianditu.com/js/maps.js"></script>
+	<script type="text/javascript" src="./js/jquery-1.9.1.min.js"></script>
+	<style type="text/css">
+		#s{
+			margin:0px 150px;
+		}
+		body{
+			background:#E9F6E5;
+			width:976px;
+		}
+		#mapDiv{
+			width:974px;
+			height:530px;
+		}
+	</style>
+	<script type="text/javascript">
+	
+	var map; 
+	var zoom = 4; 
+	var type=$("#type  option:selected").val();
+	var province=$("#province option:selected").val();
+	function onLoad(x,y) 
+	{ 		
+			if('617'  !=null){
+				$("#pfsccount4").html('617');
+			}
+			if('2'=="null" && '360000'=="null"){
+				$("#type").val("");
+				$("#province").val("");
+			}else{
+				$("#type").val('2');
+				$("#province").val('360000');
+			}
+
+			//批发市场地区数量的显示
+			var provinceName=$("#province  option:selected").text();
+			var typeName=$("#type option:selected").text();
+			if(provinceName=="省份" && typeName!="批发市场类型"){
+				$("#info").hide();
+				$("#info3").hide();
+				$("#info4").hide();
+				$("#typeinfo").html(typeName);
+			}else if(provinceName!="省份" && typeName=="批发市场类型"){
+				$("#info2").hide();
+				$("#info3").hide();
+				$("#info4").hide();
+				$("#provinceName").html(provinceName);
+			}else if(provinceName=="省份" && typeName=="批发市场类型"){
+				$("#info").hide();
+				$("#info2").hide();
+				$("#info3").hide();
+			}else{
+				$("#info").hide();
+				$("#info2").hide();
+				$("#info4").hide();
+				$("#provinceName3").html(provinceName);
+				$("#typeinfo3").html(typeName);
+			}
+			
+			
+			
+			//初始化地图对象 
+		   	map=new TMap("mapDiv"); 
+		   	//设置显示地图的中心点和级别 
+		   	var p='360000';
+			if(p=="110000"){//北京
+				map.centerAndZoom(new TLngLat(116.39397,39.90730),9);
+			}else if(p=="120000"){//天津
+				map.centerAndZoom(new TLngLat(117.296587,39.108559),9);
+			}else if(p=="130000"){//河北
+				map.centerAndZoom(new TLngLat(116.863101,39.57286),6);
+			}else if(p=="140000"){//山西
+				map.centerAndZoom(new TLngLat(112.558133,37.821229),6);
+			}else if(p=="150000"){//内蒙古
+				map.centerAndZoom(new TLngLat(110.966767,45.37754),5);
+			}else if(p=="210000"){//辽宁
+				map.centerAndZoom(new TLngLat(122.879017,41.364205),7);
+			}else if(p=="220000"){//吉林
+				map.centerAndZoom(new TLngLat(126.788442,44.136312),6);
+			}else if(p=="230000"){//黑龙江
+				map.centerAndZoom(new TLngLat(128.103849,47.311472),5);
+			}else if(p=="310000"){//上海
+				map.centerAndZoom(new TLngLat(121.467024,31.175903),9);
+			}else if(p=="320000"){//江苏
+				map.centerAndZoom(new TLngLat(119.109871,33.458576),7);
+			}else if(p=="330000"){//浙江
+				map.centerAndZoom(new TLngLat(120.360887,29.574767),7);
+			}else if(p=="340000"){//安徽
+				map.centerAndZoom(new TLngLat(116.768815,32.329384),7);
+			}else if(p=="350000"){//福建
+				map.centerAndZoom(new TLngLat(119.070776,26.210174),7);
+			}else if(p=="360000"){//江西
+				map.centerAndZoom(new TLngLat(115.694872,27.587519),7);
+			}else if(p=="370000"){//山东
+				map.centerAndZoom(new TLngLat(118.171609,36.408678),7);
+			}else if(p=="410000"){//河南
+			map.centerAndZoom(new TLngLat(114.71144,34.11789),7);
+			}else if(p=="420000"){//湖北
+				map.centerAndZoom(new TLngLat(112.92378,31.075004),7);
+			}else if(p=="430000"){//湖南
+				map.centerAndZoom(new TLngLat(111.806144,27.794281),6);
+			}else if(p=="440000"){//广东
+				map.centerAndZoom(new TLngLat(113.208938,23.679612),7);
+			}else if(p=="450000"){//广西
+				map.centerAndZoom(new TLngLat(108.848778,23.967349),7);
+			}else if(p=="460000"){//海南
+				map.centerAndZoom(new TLngLat(110.017007,19.211308),8);
+			}else if(p=="500000"){//重庆
+				map.centerAndZoom(new TLngLat(106.693995,29.528518),7);
+			}else if(p=="510000"){//四川
+				map.centerAndZoom(new TLngLat(103.728687,30.495224),6);
+			}else if(p=="520000"){//贵州
+				map.centerAndZoom(new TLngLat(107.427587,26.927771),6);
+			}else if(p=="530000"){//云南
+				map.centerAndZoom(new TLngLat(103.269798,24.805657),6);
+			}else if(p=="540000"){//西藏
+				map.centerAndZoom(new TLngLat(88.662344,31.343829),6);
+			}else if(p=="610000"){//陕西
+				map.centerAndZoom(new TLngLat(110.010108,35.501828),6);
+			}else if(p=="620000"){//甘肃
+				map.centerAndZoom(new TLngLat(101.804913,36.547973),6);
+			}else if(p=="630000"){//青海
+				map.centerAndZoom(new TLngLat(96.922731,35.206027),6);
+			}else if(p=="640000"){//宁夏
+				map.centerAndZoom(new TLngLat(106.562914,37.321505),7);
+			}else if(p=="650000"){//新疆
+				map.centerAndZoom(new TLngLat(87.215857,41.468076),5);
+			}else {
+				map.centerAndZoom(new TLngLat(105.5921,38.14034), 4);
+			}
+			//设置地图为可用鼠标放大和缩小
+			map.enableHandleMouseScroll(); 
+		
+			var pfsccount='6';
+			$("#pfsccount").html(pfsccount);
+			$("#pfsccount1").html(pfsccount);
+			$("#pfsccount3").html(pfsccount);
+			
+		
+			var coordinate='116.044933,29.747925';
+			var arr=coordinate.split(",");
+			var x=arr[0];
+			var y=arr[1];
+			var marketName='赣九江琵琶湖';
+			var marketCnName='江西九江琵琶湖农产品物流有限公司';
+			var count='63';
+			var marketWeb='http://';
+			//alert(count);
+			var pfscCount='6';
+			var marker = new TMarker(new TLngLat(x,y)); 
+			marker.name=marketName;
+			marker.cnName=marketCnName;
+			marker.count=count;
+			marker.marketWeb=marketWeb;
+			marker.setTitle(marker.name);
+			TEvent.addListener(marker,"click",onClick); 
+			map.addOverLay(marker); 
+		
+			var coordinate='115.925208,28.61147';
+			var arr=coordinate.split(",");
+			var x=arr[0];
+			var y=arr[1];
+			var marketName='南昌农产品';
+			var marketCnName='南昌深圳农产品中心批发市场有限公司';
+			var count='0';
+			var marketWeb='http://www.ncncp.com/';
+			//alert(count);
+			var pfscCount='6';
+			var marker = new TMarker(new TLngLat(x,y)); 
+			marker.name=marketName;
+			marker.cnName=marketCnName;
+			marker.count=count;
+			marker.marketWeb=marketWeb;
+			marker.setTitle(marker.name);
+			TEvent.addListener(marker,"click",onClick); 
+			map.addOverLay(marker); 
+		
+			var coordinate='null';
+			var arr=coordinate.split(",");
+			var x=arr[0];
+			var y=arr[1];
+			var marketName='江西南昌';
+			var marketCnName='江西南昌批发市场';
+			var count='0';
+			var marketWeb='null';
+			//alert(count);
+			var pfscCount='6';
+			var marker = new TMarker(new TLngLat(x,y)); 
+			marker.name=marketName;
+			marker.cnName=marketCnName;
+			marker.count=count;
+			marker.marketWeb=marketWeb;
+			marker.setTitle(marker.name);
+			TEvent.addListener(marker,"click",onClick); 
+			map.addOverLay(marker); 
+		
+			var coordinate='null';
+			var arr=coordinate.split(",");
+			var x=arr[0];
+			var y=arr[1];
+			var marketName='南昌贤士湖';
+			var marketCnName='江西南昌贤士湖农副产品批发市场';
+			var count='0';
+			var marketWeb='null';
+			//alert(count);
+			var pfscCount='6';
+			var marker = new TMarker(new TLngLat(x,y)); 
+			marker.name=marketName;
+			marker.cnName=marketCnName;
+			marker.count=count;
+			marker.marketWeb=marketWeb;
+			marker.setTitle(marker.name);
+			TEvent.addListener(marker,"click",onClick); 
+			map.addOverLay(marker); 
+		
+			var coordinate='null';
+			var arr=coordinate.split(",");
+			var x=arr[0];
+			var y=arr[1];
+			var marketName='江西禽蛋';
+			var marketCnName='江西南昌小蓝禽蛋批发市场';
+			var count='0';
+			var marketWeb='null';
+			//alert(count);
+			var pfscCount='6';
+			var marker = new TMarker(new TLngLat(x,y)); 
+			marker.name=marketName;
+			marker.cnName=marketCnName;
+			marker.count=count;
+			marker.marketWeb=marketWeb;
+			marker.setTitle(marker.name);
+			TEvent.addListener(marker,"click",onClick); 
+			map.addOverLay(marker); 
+		
+			var coordinate='null';
+			var arr=coordinate.split(",");
+			var x=arr[0];
+			var y=arr[1];
+			var marketName='赣南昌生猪';
+			var marketCnName='江西南昌佛塔生猪交易批发市场';
+			var count='0';
+			var marketWeb='null';
+			//alert(count);
+			var pfscCount='6';
+			var marker = new TMarker(new TLngLat(x,y)); 
+			marker.name=marketName;
+			marker.cnName=marketCnName;
+			marker.count=count;
+			marker.marketWeb=marketWeb;
+			marker.setTitle(marker.name);
+			TEvent.addListener(marker,"click",onClick); 
+			map.addOverLay(marker); 
+		
+	} 
+
+	
+	function show(){
+		var url=null;
+		url="./controller?SERVICE_ID=REGISTRY_MARKET_MAP_SEARCH_SERVICE";
+		document.form1.action=url;
+		document.forms['form1'].submit(); 
+		
+	}
+
+	function Reset(){
+		$("#type").val("");
+		$("#province").val("");
+		$("#info").hide();
+		$("#info2").hide();
+		$("#info3").hide();
+		$("#info4").show();
+		//清除所有覆盖物
+		map.clearOverLays();
+		map.centerAndZoom(new TLngLat(105.5921,38.14034), 4);
+	}
+	function onClose(){ 
+        map.removeOverLay(customerWinInfo); 
+  	} 
+	
+	function onClick(){
+		if("undefined" != typeof customerWinInfo){
+			onClose();
+		}
+		marker=this;
+		
+		var market_web="";
+		if (this.marketWeb!='null') {
+			market_web=this.marketWeb;
+		}
+		
+       var html=[]; 
+       html.push('<div style="background:#f2f2f2;height:20px;color:#000;width:255px;font-family:"微软雅黑"">'); 
+       html.push('     <span style="width:160px;float:left;margin-left:2px;background:">'+this.name+'</span><span  style="width:30px;float:right;margin-right:2px;" onclick="onClose();">关闭</span>');    
+       html.push('</div>'); 
+       html.push('<div id="deliver-legend-ctrl" style="background:#fff;border:1px solid #000;">'); 
+       html.push(' <table cellspacing="0" cellspadding="0" style="width:250px;border:1px;font-size:14px">'); 
+       html.push('     <tr align="left">'); 
+       html.push('         <td  colspan="2">今日报价条数:&nbsp;&nbsp;&nbsp;&nbsp;'+this.count+'条</td>'); 
+       html.push('     </tr>');
+       if(market_web!=null){
+       	if(market_web!=""&&market_web!="http://"&&market_web!="http：//"){
+           html.push('     <tr align="left" >');
+	       html.push('         <td  width="50px"">网址:</td>'); 
+	       html.push('         <td><a href="'+market_web+'" target="_blank">'+market_web+'</a></td>'); 
+	       html.push('     </tr>');
+       	}
+       }
+       html.push('     <tr align="left">'); 
+       html.push('         <td width="50px">名称:</td>'); 
+       html.push('         <td>'+this.cnName+'</td>'); 
+       html.push('     </tr>'); 
+       html.push('     <tr >'); 
+       html.push('         <td></td>'); 
+       html.push('         <td><a herf="javascript:void(0);"></a></td>'); 
+       html.push('     </tr>'); 
+       html.push(' </table>'); 
+       html.push('</div>'); 
+		 
+       var config = { 
+			offset:new TPixel(0,0), 
+			position:marker.getLngLat() 
+		 }; 
+       customerWinInfo=new TLabel(config); 
+       customerWinInfo.setTitle(''); 
+       customerWinInfo.setLabel(html.join('')); 
+       customerWinInfo.getObject().style.zIndex = 10000; 
+       map.addOverLay(customerWinInfo); 
+       var obj = customerWinInfo.getObject(); 
+       var width = parseInt(obj.offsetWidth); 
+       var height = parseInt(obj.offsetHeight); 
+       var icon = this.getIcon(); 
+       var anchor_icon = icon.getAnchor(); 
+       var pixel = new TPixel(width/-2,height/-2-anchor_icon[1]); 
+       customerWinInfo.setOffset(pixel); 
+   } 
+	</script>
+</HEAD>
+<body onload="onLoad(116.411794,39.9068);">
+<form name="form1" method="post">
+<div style="border:1px solid #85b345;width:974px;">
+<div id="s" >
+<input type="hidden" id="ifnew" name="ifnew" value="false">
+<select name="type" id="type">
+	<option value="" selected="selected">批发市场类型</option>
+	<option value="0">集散地</option>
+	<option value="1">产地</option>
+	<option value="2">销地</option>
+</select>
+<select name="province" id="province">
+	<option value="" selected="selected">省份</option>
+	<option value="110000">北京</option>
+	<option value="120000">天津</option>
+	<option value="130000">河北</option>
+	<option value="140000">山西</option>
+	<option value="150000">内蒙古</option>
+	<option value="210000">辽宁</option>
+	<option value="220000">吉林</option>
+	<option value="230000">黑龙江</option>
+	<option value="310000">上海</option>
+	<option value="320000">江苏</option>
+	<option value="330000">浙江</option>
+	<option value="340000">安徽</option>
+	<option value="350000">福建</option>
+	<option value="360000">江西</option>
+	<option value="370000">山东</option>
+	<option value="410000">河南</option>
+	<option value="420000">湖北</option>
+	<option value="430000">湖南</option>
+	<option value="440000">广东</option>
+	<option value="450000">广西</option>
+	<option value="460000">海南</option>
+	<option value="500000">重庆</option>
+	<option value="510000">四川</option>
+	<option value="520000">贵州</option>
+	<option value="530000">云南</option>
+	<option value="540000">西藏</option>
+	<option value="610000">陕西</option>
+	<option value="620000">甘肃</option>
+	<option value="630000">青海</option>
+	<option value="640000">宁夏</option>
+	<option value="650000">新疆</option>
+</select>
+<input type="button" onClick="show();" value="搜索">
+<input type="button" onClick="Reset();" value="重置">
+<!-- 不同地区有多少家批发市场 -->
+<span style=margin-left:30px id="info"><span id="provinceName"></span>共有<span id="pfsccount"></span>家批发市场</span>
+<!-- 不同类型有多少家批发市场 -->
+<span style=margin-left:30px id="info2">类型为<span id="typeinfo"></span>的批发市场共<span id="pfsccount1"></span>家</span>
+<!-- 不同类型,不同地区有多少家批发市场 -->
+<span style=margin-left:30px id="info3"><span id="provinceName3"></span>类型为<span id="typeinfo3"></span>的批发市场共<span id="pfsccount3"></span>家</span>
+<!-- 全国共有多少家批发市场 -->
+<span style=margin-left:30px id="info4">全国共有<span id="pfsccount4"></span>家批发市场</span>
+</div>
+<div id="mapDiv"></div>
+</div>
+</form>
+</body>
+
+</HTML>	

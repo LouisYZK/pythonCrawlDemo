@@ -41,12 +41,13 @@ if __name__=='__main__':
     id_queue  = getID()
     p = Pool(4)
     while not id_queue.empty():
-        # file_tag = count//10000
-        for i in range(5):
+        for i in range(10):
             id = id_queue.get()
             file_tag = count//10000
             p.apply_async(getContent, args=(id,file_tag,count,))
             count = count+1
+    for item in fp_queue:
+        item.close()
     p.close()
     p.join()
 
