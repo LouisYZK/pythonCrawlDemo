@@ -37,11 +37,11 @@ coordinate = list(map(lambda s : s.split('=')[1],re.findall(pattern1,html)))
 
 python对数据库的支持都很不错，我在多次课设中使用到了pymysql。可以直接写sql语句控制。如果对sql掌握的不好，也可以用ORM的sqlalchemy. python对mongodb的支持包pymongo保留了mongodb原生语句的风格，学习门槛很低。
 
-###启动mongodb(win)
+### 启动mongodb(win)
 ```shell
 mongod --dbpath D:\mongodb\db
 ```
-###pymongo
+### pymongo
 将数据封装成字典，调用pymongo实现插入：
 ```python
 dic = {
@@ -61,6 +61,50 @@ for item in res:
     collection.insert(item) #插入文档
     client.close()
 ```
-###查看检验
+### 查看检验
 ![](https://ws1.sinaimg.cn/large/6af92b9fly1fnzu19ibdyj20pi09fgn6.jpg)
 mongodb的可视化版本也很多，随便挑选一款使用即可。
+## pymongo的查、改、删
+###最重要的查询功能：
+
+符号|	含义	|示例
+---|-----|----|
+$lt	|小于	|{'age': {'$lt': 20}}
+$gt	|大于	|{'age': {'$gt': 20}}
+$lte|小于等于|{'age': {'$lte': 20}}
+$gte|大于等于|{'age': {'$gte': 20}}
+$ne	|不等于|{'age': {'$ne': 20}}
+$in	|在范围内|{'age': {'$in': [20, 23]}}
+$nin|不在范围内|{'age': {'$nin': [20, 23]}}
+
+符号	|含义	|示例	|示例含义
+---|---|---|---|
+$regex	|匹配正则	|{'name': {'$regex': '^M.*'}}|name以M开头
+$exists	|属性是否存在	|{'name': {'$exists': True}}|name属性存在
+$type|类型判断	|{'age': {'$type': 'int'}}	|age的类型为int
+$mod|数字模操作|{'age': {'$mod': [5, 0]}}|年龄模5余0
+$text|文本查询	|{'$text': {'$search': 'Mike'}}	|text类型的属性中包含Mike字符串
+$where|高级条件查询|{'$where': 'obj.fans_count == obj.follows_count'}|自身粉丝数等于关注数
+
+```python
+collection.find({'字段':{'$gt':30}})
+collection.find({条件}).count() #技术
+results = collection.find().sort({'name':pymongo.ASCENDING})
+[result['name'] for result in results]
+# 逻辑或
+ursor = db.restaurants.find(
+    {"$or": [{"cuisine": "Italian"}, {"address.zipcode": "10075"}]})
+# 偏移和限制
+results = collection.find().sort('name', pymongo.ASCENDING).skip(2).limit(2)
+```
+### 更新（改）
+```python
+result = db.restaurants.update_many(
+    {"address.zipcode": "10016", "cuisine": "Other"},
+    {
+        "$set": {"cuisine": "Category To Be Determined"},
+        "$currentDate": {"lastModified": True}
+    }
+)
+```
+[详细的翻译文档](https://www.cnblogs.com/zhouxuchen/p/5544227.html)

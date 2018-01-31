@@ -53,8 +53,8 @@ def store(res):
         collection.insert(item)
     client.close()
 res = parseHtml(getHtml(url_xiaodi))
-print(res)
-store(res)
+print(len(res))
+# store(res)
 
 
     
