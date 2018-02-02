@@ -45,15 +45,6 @@ pyamf.register_class(BreedInfoPo, alias='com.itown.kas.pfsc.report.po.BreedInfoP
 pyamf.register_class(PMarketInfo, alias='com.itown.kas.pfsc.report.po.PMarketInfo')
 pyamf.register_class(BreedInfo, alias='com.itown.kas.pfsc.report.po.BreedInfoPo')
 def construct_request(startDate,endDate,market_code,market_name,item_code,item_name):
-    # breed1 = BreedInfo('AA01002','面粉')
-    # breed2 = BreedInfo('AA01006','大米')
-    # breed3 = BreedInfo('AA02002','绿豆')
-    # breed4 = BreedInfo('AA02003','红小豆')
-    # children0 = ArrayCollection([breed1,breed2,breed3,breed4])
-    # _itemcode = 'AA'
-    # _itemname = '粮食'
-    # children1 = ArrayCollection([breed1,breed2,breed3,breed4])
-    # breedInfoPo = BreedInfoPo(_itemcode,_itemname,children0,children1)
     breedInfoPo = BreedInfoPo(None,None,None,None)
     select_breed = BreedInfoPo(item_code,item_name,None,None)
     select = ArrayCollection([select_breed])
@@ -86,7 +77,8 @@ finalEndDate = datetime.datetime(2018,1,30,16,00,00)
 while Date < finalEndDate:
     startDate = Date
     endDate = Date + datetime.timedelta(days = 1) 
-    data = construct_request(startDate,endDate,'1101014','北京日上','AA01002','面粉')
+    # 输入的后四个参数的编码对照表见 breed_code.csv 和 market_code.csv
+    data = construct_request(startDate,endDate,'4101016','豫万邦国际','AE01001','大白菜')
     try:
         resp = getResponse(data)
         print(amfParse(resp))
